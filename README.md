@@ -32,43 +32,43 @@ For Experiment 1, Comparing run time between Sklearn and Top N LOF \
 Data used: data\synthetic_1 \
 Results stored in: results\synthetic_1
 
-For Experiment 2, Comparing run time between Sklearn and Top N LOF \
+For Experiment 2, What if anomalies are introduced? \
 Data used: data\synthetic_2 \
 Results stored in: results\synthetic_2
 
-For Experiment 3, Comparing run time between Sklearn and Top N LOF \
+For Experiment 3, Increasing the dataset size to 500,000 rows with no anomalies \
 Data used: data\synthetic_3 \
 Results stored in: results\synthetic_3
 
-For Experiment 4, Comparing run time between Sklearn and Top N LOF \
+For Experiment 4, Comparing F1 score for outlier class \
 Data used: data\synthetic_4 \
 Results stored in: results\synthetic_4
 
-For Experiment 5, Comparing run time between Sklearn and Top N LOF \
+For Experiment 5, How does the parameter n affect Top N LOF’s performance? \
 Data used: data\synthetic_5 \
 Results stored in: results\synthetic_5
 
-For Experiment 6, Comparing run time between Sklearn and Top N LOF \
+For Experiment 6, Quick fix to be able to prune clusters \
 Data used: data\synthetic_6 \
 Results stored in: results\synthetic_6
 
-For Experiment 7, Comparing run time between Sklearn and Top N LOF \
+For Experiment 7, Calculating R and tuning C \
 Data used: data\synthetic_7 \
 Results stored in: results\synthetic_7
 
-For Experiment 8, Comparing run time between Sklearn and Top N LOF \
+For Experiment 8, Comparing f1 score for outlier class \
 Data used: data\synthetic_8 \
 Results stored in: results\synthetic_8
 
-For Experiment 9, Comparing run time between Sklearn and Top N LOF \
+For Experiment 9, ML Matt \
 Data used: data\real_world_9 \
 Results stored in: results\real_world_9
 
-For Experiment 10, Comparing run time between Sklearn and Top N LOF \
+For Experiment 10, Access behavior anomaly dataset \
 Data used: data\real_world_10 \
 Results stored in: results\real_world_10
 
-For Experiment 11, Comparing run time between Sklearn and Top N LOF \
+For Experiment 11, Energy \
 Data used: data\real_world_11 \
 Results stored in: results\real_world_11
 
