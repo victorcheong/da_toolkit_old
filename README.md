@@ -1,3 +1,5 @@
+**For more details, please refer to Lit Review_caa130123.pdf**
+
 # Introduction
 
 5 broad categories for outlier detection:
