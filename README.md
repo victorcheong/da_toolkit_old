@@ -1,5 +1,5 @@
 # Summary
-**Refer to Results on open-source datasets_caa130123 for more details** 
+**Refer to open_source_results/latest pdf file version for more details** 
 
 The algorithms (Top N LOF and Sklearn LOF) are compared in 2 areas:
 1. Runtime
