@@ -1,53 +1,89 @@
-# da_toolkit
-Top N LOF Outlier Detection (http://hanj.cs.illinois.edu/pdf/kdd01.pdf)
+# Introduction
 
-Link to download data folder for open source results: https://app.box.com/s/e7kqucxdm3x4bdf8eip9u5gp5vlen1tg \
-Link to download results folder for open source results: https://app.box.com/s/kg7xey7nvy9qhdrenlpmgohrf4ukcnxo
+5 broad categories for outlier detection:
+1. Distribution-based
+2. Depth-based
+3. Distance-based
+4. Clustering-based
+5. **Density-based** (Top N LocalOutlierFactor (LOF) is in this category)
 
-The code is split into multiple sections by experiment.
+# Motivation
 
-For Experiment 1, Comparing run time between Sklearn and Top N LOF \
-Data used: data\synthetic_1 \
-Results stored in: results\synthetic_1
+Existing solution: Sklearn LOF \
+Drawback: Have to compute the LOF score for every point. The larger the LOF score, the more likely the point is an anomaly \
+TopN LOF prunes points and does not compute the LOF score for all points
 
-For Experiment 2, Comparing run time between Sklearn and Top N LOF \
-Data used: data\synthetic_2 \
-Results stored in: results\synthetic_2
+# Use Cases
+1. Prune anomalous points in preprocessing
+2. Anomaly detection
+3. Detecting attrition
 
-For Experiment 3, Comparing run time between Sklearn and Top N LOF \
-Data used: data\synthetic_3 \
-Results stored in: results\synthetic_3
+# Algorithm
 
-For Experiment 4, Comparing run time between Sklearn and Top N LOF \
-Data used: data\synthetic_4 \
-Results stored in: results\synthetic_4
+## Step 1: Preprocessing
+Use BIRCH clustering to get all micro clusters
 
-For Experiment 5, Comparing run time between Sklearn and Top N LOF \
-Data used: data\synthetic_5 \
-Results stored in: results\synthetic_5
+## Step 2: Compute LOF bound for each micro cluster
+Those micro clusters with a very small upper LOF bound will be pruned since the points inside are unlikely to be outliers.
 
-For Experiment 6, Comparing run time between Sklearn and Top N LOF \
-Data used: data\synthetic_6 \
-Results stored in: results\synthetic_6
+## Step 3: Rank Top-n Local Outliers
+For the remaining micro clusters, calculate the LOF scores for all points inside them and sort the points by their LOF scores in descending order.
 
-For Experiment 7, Comparing run time between Sklearn and Top N LOF \
-Data used: data\synthetic_7 \
-Results stored in: results\synthetic_7
+# Evaluation Metrics
 
-For Experiment 8, Comparing run time between Sklearn and Top N LOF \
-Data used: data\synthetic_8 \
-Results stored in: results\synthetic_8
+## Number of unpruned candidates vs Max Radius
+![Alt text](/lit_review_screenshots/eval_metric1.png) \
+Increasing max radius will not significantly increase the number of unpruned candidates. Hence, this will not significantly increase runtime.
 
-For Experiment 9, Comparing run time between Sklearn and Top N LOF \
-Data used: data\real_world_9 \
-Results stored in: results\real_world_9
+## Running time vs max radius
+![Alt text](/lit_review_screenshots/eval_metric2.png) \
+Increasing max radius will not significantly increase runtime.
 
-For Experiment 10, Comparing run time between Sklearn and Top N LOF \
-Data used: data\real_world_10 \
-Results stored in: results\real_world_10
+## Runtime vs size of data
+![Alt text](/lit_review_screenshots/eval_metric3.png) \
+Increasing the size of data will not significantly increase runtime.
 
-For Experiment 11, Comparing run time between Sklearn and Top N LOF \
-Data used: data\real_world_11 \
-Results stored in: results\real_world_11
+# Source Codes
+Language: Java 
 
-The data and results for Experiment 12 have been omitted due to the large size of the files.
+Other parameters: 
+1. k for KNN (k)
+2. N to indicate how many outliers to return (n)
+3. Dimensionality of dataset (d)
+4. Domain Range (for BIRCH clustering) (r) \
+Defined as the distance between the centre of the data space to the furthest data point
+5. Cluster radius (for BIRCH clustering) (c) \
+Between 0 and 1 \
+Metrics used to calculate distance: L1/L2 norm 
+
+# LOF Score
+Defined as the average of the ratios of the density of the neighbours as compared to the density of the focal point. \
+The higher the score, the denser the neighbours are as compared to the focal point. Hence, it is more likely for the focal point to be an anomaly.
+
+# Challenges
+
+## High dimensions
+Top N LOF cannot handle high dimensions well due to the curse of dimensionality.
+
+### First naive approach
+Top N LOF drawback: If you have multiple anomalies close to one another, these anomalies cannot be flagged out well by KNN 
+
+Solution:
+1. Calculate the k-nearest neighbor distances
+2. Calculate the successive differences between distances
+3. Select the knn distance with the maximum difference
+
+### Better approach
+Uses an encoder-decoder architecture to reduce the dimensionality space so that anomalies can be more effectively detected in lower dimensions.
+
+### Alternative approach
+Uses an encoder-decoder architecture as well as clustering to flag out anomalies instead.
+
+# Global Outlier Factor (GOF) Score
+An alternative to using LOF is GOF. 
+
+Approaches:
+1. Statistical boxplot
+2. Sklearn Isolation Forest \
+Uses decision trees to flag anomalies. \
+The shorter the path from the root to the leaf containing the anomalies, the more likely those anomalies are indeed anomalies
