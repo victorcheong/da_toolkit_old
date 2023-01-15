@@ -137,7 +137,7 @@ The algorithms (Top N LOF and Sklearn LOF) are compared in 2 areas:
 
 These 2 areas are universal metrics used to evaluate any algorithm.
 
-From the experiments conducted, accuracy between the 2 algorithms are comparable. The table below shows the comparison in runtime between the 2 algorithms.
+From the experiments conducted above, accuracy between the 2 algorithms are comparable. The table below shows the comparison in runtime between the 2 algorithms.
 
 | Size of dataset | Top N LOF | Sklearn LOF |
 | :---:   | :---: | :---: |
